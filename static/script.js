@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',()=>console.log('EduPredict AI loaded successfully.'));

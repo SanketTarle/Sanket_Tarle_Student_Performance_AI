@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduPredict AI | Student Analytics</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="hero">
+  <div>
+    <p class="eyebrow">DATA ANALYTICS + AI</p>
+    <h1>EduPredict AI</h1>
+    <p>Student performance analytics and final-grade prediction dashboard.</p>
+  </div>
+</header>
+
+<main class="container">
+  <section class="cards">
+    <div class="card"><span>Total Students</span><strong>{{ summary.students }}</strong></div>
+    <div class="card"><span>Average Final Grade</span><strong>{{ summary.avg_grade }}</strong></div>
+    <div class="card"><span>Average Absences</span><strong>{{ summary.avg_absences }}</strong></div>
+    <div class="card"><span>Pass Rate (G3 ≥ 10)</span><strong>{{ summary.pass_rate }}%</strong></div>
+  </section>
+
+  {% if prediction is defined %}
+  <section class="result">
+    <h2>Prediction Result</h2>
+    <div class="prediction-number">{{ prediction }}/20</div>
+    <p class="risk">{{ risk }}</p>
+    <p>This is a model estimate for the supplied student profile, not a guaranteed outcome.</p>
+  </section>
+  {% endif %}
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Predict Final Grade</h2>
+      <p>Enter a student profile and click Predict.</p>
+    </div>
+    <form method="POST" action="/predict" class="grid">
+      <label>School<select name="school"><option>GP</option><option>MS</option></select></label>
+      <label>Sex<select name="sex"><option>F</option><option>M</option></select></label>
+      <label>Age<input name="age" type="number" min="15" max="22" value="17" required></label>
+      <label>Address<select name="address"><option>U</option><option>R</option></select></label>
+      <label>Family Size<select name="famsize"><option>GT3</option><option>LE3</option></select></label>
+      <label>Study Time (1–4)<input name="studytime" type="number" min="1" max="4" value="2" required></label>
+      <label>Past Failures<input name="failures" type="number" min="0" max="3" value="0" required></label>
+      <label>School Support<select name="schoolsup"><option>no</option><option>yes</option></select></label>
+      <label>Family Support<select name="famsup"><option>yes</option><option>no</option></select></label>
+      <label>Paid Classes<select name="paid"><option>no</option><option>yes</option></select></label>
+      <label>Activities<select name="activities"><option>yes</option><option>no</option></select></label>
+      <label>Higher Education Goal<select name="higher"><option>yes</option><option>no</option></select></label>
+      <label>Internet at Home<select name="internet"><option>yes</option><option>no</option></select></label>
+      <label>Family Relationship (1–5)<input name="famrel" type="number" min="1" max="5" value="4" required></label>
+      <label>Free Time (1–5)<input name="freetime" type="number" min="1" max="5" value="3" required></label>
+      <label>Going Out (1–5)<input name="goout" type="number" min="1" max="5" value="3" required></label>
+      <label>Health (1–5)<input name="health" type="number" min="1" max="5" value="4" required></label>
+      <label>Absences<input name="absences" type="number" min="0" max="30" value="5" required></label>
+      <label>G1<input name="G1" type="number" min="0" max="20" value="12" required></label>
+      <label>G2<input name="G2" type="number" min="0" max="20" value="12" required></label>
+      <div class="full"><button type="submit">Predict Final Grade</button></div>
+    </form>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><h2>Analytics Visuals</h2><p>Quick exploratory views generated from the bundled dataset.</p></div>
+    <div class="charts">
+      <img src="{{ url_for('static', filename='charts/grade_distribution.png') }}" alt="Grade distribution">
+      <img src="{{ url_for('static', filename='charts/g2_vs_g3.png') }}" alt="G2 vs G3">
+      <img src="{{ url_for('static', filename='charts/studytime_vs_grade.png') }}" alt="Study time vs grade">
+      <img src="{{ url_for('static', filename='charts/feature_importance.png') }}" alt="Feature importance">
+    </div>
+  </section>
+</main>
+<footer>EduPredict AI • Internship Demonstration Project • Built with Python, Flask, Pandas and Scikit-learn</footer>
+</body>
+</html>
