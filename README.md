@@ -7,6 +7,13 @@
 EduPredict AI is a Python-based machine learning web application designed to analyze student academic data and provide meaningful performance insights.
 
 The application uses historical student performance data to identify patterns, predict outcomes, and classify students based on performance risk levels through an interactive Flask dashboard.
+## 📸 Application Preview
+
+### EduPredict AI Dashboard
+
+The dashboard provides an overview of student performance, including total students, average final grade, average absences, pass rate, and an interactive final-grade prediction interface.
+
+![EduPredict AI Dashboard](dashboard.png)
 
 ## ✨ Key Features
 
